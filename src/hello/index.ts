@@ -4,6 +4,10 @@ import { Rule, SchematicContext, Tree } from "@angular-devkit/schematics";
 // per file.
 export function hello(_options: any): Rule {
   return (tree: Tree, _context: SchematicContext) => {
+    const { name } = _options;
+
+    tree.create("hello.js", `console.log('Hello ${name}!');`);
+
     return tree;
   };
 }
