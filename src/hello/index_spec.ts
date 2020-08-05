@@ -1,16 +1,40 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from "@angular-devkit/schematics/testing";
+import * as path from "path";
 
+const collectionPath = path.join(__dirname, "../collection.json");
+const runner = new SchematicTestRunner("schematics", collectionPath);
 
-const collectionPath = path.join(__dirname, '../collection.json');
+let appTree: UnitTestTree;
 
+describe("hello", () => {
+  beforeEach(async () => {
+    appTree = await runner
+      .runExternalSchematicAsync("@schematics/angular", "workspace", {
+        name: "test",
+        version: "10.0.5",
+      })
+      .toPromise();
 
-describe('hello', () => {
-  it('works', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematicAsync('hello', {}, Tree.empty()).toPromise();
+    appTree = await runner
+      .runExternalSchematicAsync(
+        "@schematics/angular",
+        "application",
+        { name: "my-app" },
+        appTree
+      )
+      .toPromise();
+  });
 
-    expect(tree.files).toEqual([]);
+  it("works", async () => {
+    const options = { name: "Toure" };
+
+    const tree = await runner
+      .runSchematicAsync("hello", options, appTree)
+      .toPromise();
+
+    expect(tree.files).toContain("/my-app/src/app/hello-toure/hello-toure.ts");
   });
 });
