@@ -35,6 +35,6 @@ describe("hello", () => {
       .runSchematicAsync("hello", options, appTree)
       .toPromise();
 
-    expect(tree.files).toContain("/my-app/src/app/hello-toure/hello-toure.ts");
+    expect(tree.files).toContain("/my-app/src/app/app.module.ts");
   });
 });
