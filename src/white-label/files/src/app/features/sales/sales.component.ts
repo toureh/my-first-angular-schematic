@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationService } from 'src/app/core/configuration/configuration.service';
-import { OperationService } from 'src/app/core/services/business/operation.service';
+import { ConfigurationService } from 'src/app/core/services/configuration/configuration.service';
 import { SimulationService } from 'src/app/core/services/business/simulation/simulation.service';
 
 @Component({
@@ -28,26 +27,17 @@ export class SalesComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(`name: ${this.name}`);
-    console.log(`cpf: ${this.cpf}`);
-    console.log(`id: ${this.id}`);
-    console.log(`loanAmount: ${this.loanAmount}`);
-    console.log(`quantity: ${this.installments}`);
     this.isLoadingSimulation = true;
 
     this.simulationService
-      .doSimulation(
-        {
-          name: this.name,
-          cpf: this.cpf,
-          email: this.email,
-          loanAmount: this.loanAmount,
-          quantity: this.installments,
-        },
-        this.id
-      )
+      .doSimulation({
+        name: this.name,
+        cpf: this.cpf,
+        email: this.email,
+        loanAmount: this.loanAmount,
+        quantity: this.installments,
+      })
       .subscribe((data: any) => {
-        console.log(`data: ${JSON.stringify(data)}`);
         this.simulationResult = data;
         this.isLoadingSimulation = false;
       });

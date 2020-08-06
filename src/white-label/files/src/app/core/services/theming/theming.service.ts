@@ -16,6 +16,7 @@ export class ThemingService {
       propertyMap.primaryColor
     );
 
+    // You can use this loop if the API retuns CSS properites in snake case (Eg. primary-color)
     Object.keys(propertyMap).forEach((key) => {
       el.nativeElement.style.setProperty(`--${key}`, propertyMap[key]);
     });

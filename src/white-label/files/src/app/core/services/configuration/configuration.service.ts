@@ -29,7 +29,7 @@ export class ConfigurationService {
     this.isCacheEnabled = false;
   }
 
-  getConfig(tenantId?: string): Observable<AppConfiguration> {
+  getConfig(): Observable<AppConfiguration> {
     const inMemoryConfiguration = this.getFromMemory();
 
     if (inMemoryConfiguration) {
@@ -41,19 +41,15 @@ export class ConfigurationService {
 
       return cacheResponse
         ? this.getFromCache(cacheResponse)
-        : this.getFromApi(tenantId, true);
+        : this.getFromApi(true);
     }
 
-    return this.getFromApi(tenantId);
+    return this.getFromApi();
   }
 
-  private getFromApi(
-    tenantId: string,
-    isCacheEnabled = false
-  ): Observable<AppConfiguration> {
-    this.tenantId = tenantId;
+  private getFromApi(isCacheEnabled = false): Observable<AppConfiguration> {
     return this.api
-      .fetchConfig(tenantId)
+      .fetchConfig()
       .pipe(catchError((err) => of(defaultConfig)))
       .pipe(
         tap((val) => {

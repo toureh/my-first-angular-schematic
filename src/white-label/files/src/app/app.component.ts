@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppConfiguration } from './core/configuration/configuration';
-import { ConfigurationService } from './core/configuration/configuration.service';
-import { ThemingService } from './core/services/theming.service';
-import hostTenantMap from './core/configuration/host-to-tenant-map';
+import { AppConfiguration } from './core/services/configuration/configuration';
+import { ConfigurationService } from './core/services/configuration/configuration.service';
+import { ThemingService } from './core/services/theming/theming.service';
+import hostTenantMap from './core/services/configuration/host-to-tenant-map';
 
 @Component({
   selector: 'app-root',
@@ -36,8 +36,8 @@ export class AppComponent implements OnInit {
   }
 
   private loadConfiguration(): Observable<AppConfiguration> {
-    const tenantId = this.whoami();
-    return this.configurationService.getConfig(tenantId);
+    this.configurationService.tenantId = this.whoami();
+    return this.configurationService.getConfig();
   }
 
   private whoami(): string {

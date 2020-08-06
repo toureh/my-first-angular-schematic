@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { ConfigurationService } from '../../configuration/configuration.service';
 import { NavComponent } from './nav.component';
+import { ConfigurationService } from '../../services/configuration/configuration.service';
 
 describe('NavComponent', () => {
   let component: NavComponent;

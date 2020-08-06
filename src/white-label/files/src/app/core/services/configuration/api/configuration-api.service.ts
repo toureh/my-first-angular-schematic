@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { AppConfiguration } from '../configuration';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,13 +10,7 @@ import { AppConfiguration } from '../configuration';
 export class ConfigurationApiService {
   constructor(private http: HttpClient) {}
 
-  fetchConfig(id: string): Observable<AppConfiguration> {
-    console.log(`id: ${id}`);
-
-    return this.http.get(`http://localhost:3000/config`, {
-      headers: {
-        'x-tenant': id,
-      },
-    });
+  fetchConfig(): Observable<AppConfiguration> {
+    return this.http.get(`${environment.apiUrl}/config`);
   }
 }

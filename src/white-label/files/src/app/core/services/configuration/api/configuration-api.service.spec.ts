@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { ConfigurationApiService } from './configuration-api.service';
 import { HttpClient } from '@angular/common/http';
 
-import getConfigApiResponse from '../../../../testing/api-responses/get-config.json';
+import getConfigApiResponse from '../../../../../testing/api-responses/get-config.json';
 import { of } from 'rxjs';
 
 describe('ConfigurationApiService', () => {
@@ -29,7 +29,7 @@ describe('ConfigurationApiService', () => {
     mockHttpClient.get.and.returnValue(of(apiResponse));
 
     // When
-    const configObservable = service.fetchConfig('4200');
+    const configObservable = service.fetchConfig();
 
     // Then
     configObservable.subscribe((data) => {
