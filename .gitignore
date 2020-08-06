@@ -17,6 +17,5 @@ yarn-error.log*
 **/.DS_Store
 .DS_Store
 
-# Generated tree
-hello.js
-hello-toure-*/
+# Generated files
+*.tgz
